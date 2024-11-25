@@ -1,3 +1,5 @@
+import 'dart:ui_web';
+
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -64,19 +66,45 @@ class _HomepageState extends State<Homepage> {
                       crossAxisSpacing: 10),
                   itemCount: button.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color.fromARGB(255, 184, 181, 181)),
-                      child: Center(
-                          child: Text(
-                        button[index],
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                      )),
-                    );
+                    if (index == 0) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            userQuestion = '';
+                            userAnswer = '';
+                          });
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color.fromARGB(255, 217, 247, 162)),
+                          child: Center(
+                              child: Text(
+                            button[index],
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                      );
+                    } else if (index == button.length - 1) {
+                      return GestureDetector(
+                        child: Container(
+                          height: 30,
+                          width: 30,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color.fromARGB(255, 243, 90, 70)),
+                          child: Center(
+                              child: Text(
+                            button[index],
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                      );
+                    }
                   }),
             ),
           )
