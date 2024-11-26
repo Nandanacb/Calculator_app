@@ -1,6 +1,5 @@
-import 'dart:ui_web';
-
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class _HomepageState extends State<Homepage> {
   var userQuestion = '';
   var userAnswer = '';
 
-  List<String> button = [
+  List<String> buttons = [
     'C',
     'DEL',
     '%',
@@ -19,7 +18,7 @@ class _HomepageState extends State<Homepage> {
     '9',
     '8',
     '7',
-    'X',
+    'x',
     '6',
     '5',
     '4',
@@ -36,15 +35,17 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 109, 107, 107),
-      body: Column(
-        children: [
-          SizedBox(height: 100),
+        backgroundColor: const Color.fromARGB(255, 207, 140, 140),
+        body: Column(children: [
+          SizedBox(height: 50),
           Container(
             alignment: Alignment.centerLeft,
-            child: Text(
-              userQuestion,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                userQuestion,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
             ),
           ),
           SizedBox(height: 100),
@@ -52,64 +53,136 @@ class _HomepageState extends State<Homepage> {
             alignment: Alignment.centerRight,
             child: Text(
               userAnswer,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
           ),
           SizedBox(height: 70),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15),
-              child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10),
-                  itemCount: button.length,
-                  itemBuilder: (context, index) {
-                    if (index == 0) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            userQuestion = '';
-                            userAnswer = '';
-                          });
-                        },
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: const Color.fromARGB(255, 217, 247, 162)),
-                          child: Center(
-                              child: Text(
-                            button[index],
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                      );
-                    } else if (index == button.length - 1) {
-                      return GestureDetector(
-                        child: Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: const Color.fromARGB(255, 243, 90, 70)),
-                          child: Center(
-                              child: Text(
-                            button[index],
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                      );
-                    }
-                  }),
-            ),
-          )
-        ],
-      ),
-    );
+              child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10),
+                      itemCount: buttons.length,
+                      itemBuilder: (context, index) {
+                        if (index == 0) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                userQuestion = '';
+                                userAnswer = '';
+                              });
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color:
+                                      const Color.fromARGB(255, 217, 247, 162)),
+                              child: Center(
+                                  child: Text(
+                                buttons[index],
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              )),
+                            ),
+                          );
+                        } else if (index == 1) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                userQuestion = userQuestion.substring(
+                                    0, userQuestion.length - 1);
+                              });
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color:
+                                      const Color.fromARGB(255, 243, 90, 70)),
+                              child: Center(
+                                  child: Text(
+                                buttons[index],
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              )),
+                            ),
+                          );
+                        } else if (index == buttons.length - 1) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                equalPressed();
+                              });
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.purple),
+                              child: Center(
+                                  child: Text(
+                                buttons[index],
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                              )),
+                            ),
+                          );
+                        } else {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                userQuestion += buttons[index];
+                              });
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: isOperator(buttons[index])
+                                      ? Colors.purple
+                                      : Colors.deepPurple[50]),
+                              child: Center(
+                                  child: Text(
+                                buttons[index],
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: isOperator(buttons[index])
+                                        ? Colors.white
+                                        : Colors.deepPurple),
+                              )),
+                            ),
+                          );
+                        }
+                      })))
+        ]));
+  }
+
+  bool isOperator(String x) {
+    if (x == '%' || x == '/' || x == 'x' || x == '+' || x == '-' || x == '=') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void equalPressed() {
+    String finalQuestion = userQuestion;
+    finalQuestion = finalQuestion.replaceAll('x', '*');
+
+    Parser p = Parser();
+    Expression exp = p.parse(finalQuestion);
+    ContextModel cm = ContextModel();
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+
+    userAnswer = eval.toString();
   }
 }
