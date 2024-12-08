@@ -35,7 +35,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 207, 140, 140),
+        backgroundColor: const Color.fromARGB(255, 30, 29, 29),
         body: Column(children: [
           SizedBox(height: 50),
           Container(
@@ -44,7 +44,7 @@ class _HomepageState extends State<Homepage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 userQuestion,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),
               ),
             ),
           ),
@@ -53,7 +53,7 @@ class _HomepageState extends State<Homepage> {
             alignment: Alignment.centerRight,
             child: Text(
               userAnswer,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white),
             ),
           ),
           SizedBox(height: 70),
@@ -81,7 +81,7 @@ class _HomepageState extends State<Homepage> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   color:
-                                      const Color.fromARGB(255, 217, 247, 162)),
+                                      const Color.fromARGB(255, 168, 170, 164)),
                               child: Center(
                                   child: Text(
                                 buttons[index],
@@ -104,7 +104,7 @@ class _HomepageState extends State<Homepage> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   color:
-                                      const Color.fromARGB(255, 243, 90, 70)),
+                                      const Color.fromARGB(255, 168, 170, 164)),
                               child: Center(
                                   child: Text(
                                 buttons[index],
@@ -125,12 +125,12 @@ class _HomepageState extends State<Homepage> {
                               width: 30,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  color: Colors.purple),
+                                  color: const Color.fromARGB(255, 234, 159, 46)),
                               child: Center(
                                   child: Text(
                                 buttons[index],
                                 style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                    fontSize: 25, fontWeight: FontWeight.bold,color: Colors.white),
                               )),
                             ),
                           );
@@ -147,7 +147,7 @@ class _HomepageState extends State<Homepage> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                   color: isOperator(buttons[index])
-                                      ? Colors.purple
+                                      ? Colors.orange
                                       : Colors.deepPurple[50]),
                               child: Center(
                                   child: Text(
@@ -157,7 +157,7 @@ class _HomepageState extends State<Homepage> {
                                     fontWeight: FontWeight.bold,
                                     color: isOperator(buttons[index])
                                         ? Colors.white
-                                        : Colors.deepPurple),
+                                        : Colors.black),
                               )),
                             ),
                           );
